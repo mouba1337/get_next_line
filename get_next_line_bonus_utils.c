@@ -6,7 +6,7 @@
 /*   By: mhend <mhend@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 01:47:22 by mhend             #+#    #+#             */
-/*   Updated: 2025/12/02 02:37:11 by mhend            ###   ########.fr       */
+/*   Updated: 2025/12/04 20:22:29 by mhend            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,6 @@ char	*strchrr(const char *s, int c)
 char	*strjoinn(char *s1, char *s2)
 {
 	char	*s;
-	size_t	s1len;
-	size_t	s2len;
-	size_t	tot;
 	int		i;
 	int		j;
 
@@ -53,24 +50,17 @@ char	*strjoinn(char *s1, char *s2)
 	}
 	if (!s2)
 		return (free(s1), NULL);
-	s1len = strlenn(s1);
-	s2len = strlenn(s2);
-	tot = s1len + s2len;
-	s = malloc(sizeof(char) * tot + 1);
+	s = malloc(sizeof(char) * (strlenn(s1) + strlenn(s2) + 1));
 	if (!s)
 		return (free(s1), NULL);
-	i = 0;
-	while (s1[i])
-	{
+	i = -1;
+	while (s1[++i])
 		s[i] = s1[i];
-		i++;
-	}
 	j = 0;
 	while (s2[j])
 		s[i++] = s2[j++];
 	s[i] = '\0';
-	free(s1);
-	return (s);
+	return (free(s1), s);
 }
 
 char	*substrr(const char *s, unsigned int start, size_t len)
